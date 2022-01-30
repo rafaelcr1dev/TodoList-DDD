@@ -1,24 +1,22 @@
 const path = require("path");
-const nodeExternals = require('webpack-node-externals');
-
-/*
-Webpack
-
-Test
-npx webpack --config webpack.server.js --watch
-npx nodemon dist/bundle_server.js
-*/
+const webpack = require('webpack');
+const LiveReloadPlugin = require('webpack-livereload-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/frontend/index.js',
   output: {
     path: path.resolve(__dirname, 'dist/public'),
-    filename: 'bundle_client.js'
+    filename: 'bundle_client.js',
+    clean: true
   },
   module: {
     rules: [{
       test: /.js/,
       use: 'babel-loader'
     }]
-  }
+  },
+  plugins: [
+    new LiveReloadPlugin()
+  ]
 }

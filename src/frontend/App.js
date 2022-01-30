@@ -18,14 +18,16 @@ export default function AppComponent(props) {
     <>
       <h3>Lista de comentários ({comments.length})</h3>
       <hr />
-      <ul>
-        {comments.map(comment => (
-          <li key={comment.id}>
-            <span>{comment.name} - {comment.message}</span>
-            <button type="button" onClick={() => excluircomment(comment.id)}>Excluir</button>
-          </li>
-        ))}
-      </ul>
+      {comments.length && (
+        <ul>
+          {comments.map(comment => (
+            <li key={comment.id}>
+              <span>{comment.name} - {comment.message}</span>
+              <button type="button" onClick={() => excluircomment(comment.id)}>Excluir</button>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   )
 }

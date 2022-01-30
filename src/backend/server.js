@@ -56,5 +56,5 @@ app.get('/comments', function(req, res) {
 })
 
 app.listen(3030, function () {
-  console.log('Server running in port 3000')
+  console.log('Server running in port 3030')
 })
