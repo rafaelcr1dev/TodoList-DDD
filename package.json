@@ -1,11 +1,13 @@
 {
   "name": "todoList-ddd",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "./src/backend/server.js",
   "scripts": {
-    "webpack:server": "webpack --config webpack.server.js --watch",
+    "webpack:server": "webpack --config webpack.server.js --watch --mode=development",
+    "webpack:client": "webpack --config webpack.config.js --watch --mode=development",
     "serve": "nodemon ./dist/bundle_server.js",
-    "start": "npm-run-all --parallel serve webpack:*"
+    "start": "npm-run-all --parallel serve webpack:*",
+    "dev": "npm-run-all --parallel serve webpack:*"
   },
   "repository": "https://github.com/rafaelcr1dev/TodoList-DDD.git",
   "author": "rafaelcr123 <rafaelcruz1@hotmail.com>",
@@ -22,6 +24,7 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "express": "^4.17.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

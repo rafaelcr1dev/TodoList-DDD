@@ -10,19 +10,15 @@ npx nodemon dist/bundle_server.js
 */
 
 module.exports = {
-  entry: './src/backend/server.js',
+  entry: './src/frontend/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle_server.js'
+    path: path.resolve(__dirname, 'dist/public'),
+    filename: 'bundle_client.js'
   },
-  target: 'node',
   module: {
     rules: [{
       test: /.js/,
       use: 'babel-loader'
     }]
-  },
-  externals: [
-    nodeExternals()
-  ]
+  }
 }
