@@ -7,7 +7,8 @@
     "lib": ["es6"],                             
     "allowJs": true,                       
     "outDir": "./dist",                        
-    "rootDir": "./src",                       
+    "rootDirs": ["src", "tests"],     
+    "baseUrl": "src",               
     "removeComments": true,                
     "typeRoots": [
       "./node_modules/@types",
@@ -19,7 +20,6 @@
     "emitDecoratorMetadata": true,         
     "skipLibCheck": true,                     
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
     "paths": {
       "@controllers/*": ["./src/controllers/*"],
       "@models/*": ["./src/models/*"],
@@ -28,7 +28,9 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "tests"
   ],
-  "moduleResolution": "node"
+  "moduleResolution": "node",
+  "exclude": ["tests/e2e"]
 }
