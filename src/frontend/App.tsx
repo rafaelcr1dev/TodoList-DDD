@@ -7,7 +7,7 @@ type IProps = {
   }
 }
 
-export default function AppComponent (props: IProps): any {
+export default function AppComponent(props: IProps): any {
   const [comments, setComments] = useState(props.data.comments || [])
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function AppComponent (props: IProps): any {
     })
   }, [])
 
-  function deleteComment (commentId): void {
+  function deleteComment(commentId): void {
     console.log(commentId)
   }
 
@@ -28,8 +28,12 @@ export default function AppComponent (props: IProps): any {
         <ul>
           {comments.map(comment => (
             <li key={comment.id}>
-              <span>{comment.name} - {comment.message}</span>
-              <button type="button" onClick={() => deleteComment(comment.id)}>Excluir</button>
+              <span>
+                {comment.name} - {comment.message}
+              </span>
+              <button type="button" onClick={() => deleteComment(comment.id)}>
+                Excluir
+              </button>
             </li>
           ))}
         </ul>

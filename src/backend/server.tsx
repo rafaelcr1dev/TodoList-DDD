@@ -22,7 +22,9 @@ app.get('/', function (req, res) {
       res.send(
         data.replace(
           '<div id="app"></div>',
-          `<div id="app">${ReactDOM.renderToString(<AppComponent data={{ comments: response.data.slice(0, 2) }} />)}</div>`
+          `<div id="app">${ReactDOM.renderToString(
+            <AppComponent data={{ comments: response.data.slice(0, 2) }} />
+          )}</div>`
         )
       )
     })
