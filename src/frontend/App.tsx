@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function AppComponent(props) {
+type IProps = {
+  data: {
+    comments: []
+  }
+}
+
+export default function AppComponent (props: IProps): any {
   const [comments, setComments] = useState(props.data.comments || [])
 
   useEffect(() => {
-    axios.get('http://localhost:3030/comments').then(function(response) {
+    axios.get('http://localhost:3030/comments').then(function (response) {
       setComments(response.data)
     })
-  }, []);
+  }, [])
 
-  function excluircomment(commentId) {
-    console.log(commentId);
+  function deleteComment (commentId): void {
+    console.log(commentId)
   }
 
   return (
@@ -23,7 +29,7 @@ export default function AppComponent(props) {
           {comments.map(comment => (
             <li key={comment.id}>
               <span>{comment.name} - {comment.message}</span>
-              <button type="button" onClick={() => excluircomment(comment.id)}>Excluir</button>
+              <button type="button" onClick={() => deleteComment(comment.id)}>Excluir</button>
             </li>
           ))}
         </ul>

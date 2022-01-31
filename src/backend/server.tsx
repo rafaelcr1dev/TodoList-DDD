@@ -1,25 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/server';
-import fs from 'fs';
-import axios from 'axios';
-import express from 'express';
+import React from 'react'
+import ReactDOM from 'react-dom/server'
+import fs from 'fs'
+import axios from 'axios'
+import express from 'express'
 
-import AppComponent from '../frontend/App';
+import AppComponent from '../frontend/App'
 
-const app = express();
+const PORT = process.env.PORT || 3006
+const app = express()
 
-app.use(express.static('dist/public'))
-
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   let data
-  
+
   try {
     data = fs.readFileSync('./src/frontend/index.html', 'utf8')
   } catch (err) {
     data = ''
     console.error(err)
   } finally {
-    axios.get('http://localhost:3030/comments').then(function(response) {
+    axios.get('http://localhost:3030/comments').then(function (response) {
       res.send(
         data.replace(
           '<div id="app"></div>',
@@ -28,9 +27,9 @@ app.get('/', function(req, res) {
       )
     })
   }
-});
+})
 
-app.get('/comments', function(req, res) {
+app.get('/comments', function (req, res) {
   res.send([
     {
       id: '001',
@@ -55,6 +54,8 @@ app.get('/comments', function(req, res) {
   ])
 })
 
-app.listen(3030, function () {
-  console.log('Server running in port 3030')
+app.use(express.static('dist/public'))
+
+app.listen(PORT, function () {
+  console.log(`Server is listening on port ${PORT}`)
 })
