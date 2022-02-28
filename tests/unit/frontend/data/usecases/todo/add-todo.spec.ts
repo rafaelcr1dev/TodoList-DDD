@@ -21,12 +21,13 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddTodo Smoke test UseCases', () => {
-  test('Should be exists a AddTodo class', () => {
+  test('Should be exists a AddTodo', () => {
     expect(AddTodo).toBeDefined()
   })
 
-  test('Should be exists a add method on AddTodo class', () => {
+  test('Should be exists a add method on AddTodo', () => {
     const { sut } = makeSut()
+
     expect(sut.add).toBeDefined()
   })
 })
@@ -35,28 +36,37 @@ describe('AddTodo UseCases ', () => {
   test('Should call AddTodo with correct params', () => {
     const { sut } = makeSut()
     const addSpy = jest.spyOn(sut, 'add')
+
     sut.add(addTodoParams)
+
     expect(addSpy).toHaveBeenCalledWith(addTodoParams)
   })
 
   test('Should call AddTodoRepository with correct params', () => {
     const { sut, addTodoRepositorySpy } = makeSut()
     const addTodoRepository = jest.spyOn(addTodoRepositorySpy, 'add')
+
     sut.add(addTodoParams)
+
     expect(addTodoRepository).toHaveBeenCalledWith(addTodoParams)
   })
 
   test('Should call AddTodo be called time once', async () => {
     const { sut } = makeSut()
     const addSpy = jest.spyOn(sut, 'add')
+
     await sut.add(addTodoParams)
+
     expect(addSpy).toHaveBeenCalledTimes(1)
   })
 
   test('Should call AddTodoRepository be called time once', async () => {
     const { sut, addTodoRepositorySpy } = makeSut()
-    jest.spyOn(addTodoRepositorySpy, 'add')
+    const addSpy = jest.spyOn(addTodoRepositorySpy, 'add')
+
     await sut.add(addTodoParams)
+
     expect(addTodoRepositorySpy.nonce).toBe(1)
+    expect(addSpy).toHaveBeenCalledTimes(1)
   })
 })
