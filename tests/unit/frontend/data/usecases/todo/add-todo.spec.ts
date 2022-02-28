@@ -42,13 +42,14 @@ describe('AddTodo UseCases ', () => {
     expect(addSpy).toHaveBeenCalledWith(addTodoParams)
   })
 
-  test('Should call AddTodoRepository with correct params', () => {
+  test('Should call AddTodoRepository with correct params', async () => {
     const { sut, addTodoRepositorySpy } = makeSut()
     const addTodoRepository = jest.spyOn(addTodoRepositorySpy, 'add')
 
-    sut.add(addTodoParams)
+    await sut.add(addTodoParams)
 
     expect(addTodoRepository).toHaveBeenCalledWith(addTodoParams)
+    expect(addTodoRepositorySpy.params).toEqual(addTodoParams)
   })
 
   test('Should call AddTodo be called time once', async () => {
