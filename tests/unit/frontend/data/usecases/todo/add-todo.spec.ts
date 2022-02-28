@@ -1,6 +1,6 @@
 import { AddTodo } from '@/frontend/data/usecases/todo'
 
-import { AddTodoRepositorySpy } from '../../mocks'
+import { AddTodoRepositorySpy, throwError } from '../../mocks'
 import { mockAddTodoParams } from '../../../domain/mocks'
 
 type SutTypes = {
@@ -77,5 +77,14 @@ describe('AddTodo UseCases ', () => {
     const todoResponse = await sut.add(addTodoParams)
 
     expect(todoResponse).toBeNull()
+  })
+
+  test('Should throw if AddTodoRepository throws', async () => {
+    const { sut, addTodoRepositorySpy } = makeSut()
+    jest.spyOn(addTodoRepositorySpy, 'add').mockImplementationOnce(throwError)
+
+    const promise = sut.add(addTodoParams)
+
+    await expect(promise).rejects.toThrow()
   })
 })
