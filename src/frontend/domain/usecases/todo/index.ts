@@ -1,3 +1,3 @@
-export { AddTodo } from './add-todo'
-export { LoadTodo } from './load-todos'
-export { UpdateTodo } from './update-todo'
+export { AddTodoProtocol } from './add-todo-protocol'
+export { LoadTodoProtocol } from './load-todos-protocol'
+export { UpdateTodoProtocol } from './update-todo-protocol'
