@@ -1,4 +1,4 @@
 export type AddTodoModel = {
-  id: string
+  todoId: string
   todoName: string
 }

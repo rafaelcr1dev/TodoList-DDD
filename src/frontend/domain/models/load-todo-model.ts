@@ -1,5 +1,5 @@
 export type LoadTodoModel = {
-  id: string
+  todoId: string
   todoName: string
   todoActive: boolean
 }
