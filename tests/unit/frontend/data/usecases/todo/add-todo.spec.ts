@@ -69,4 +69,13 @@ describe('AddTodo UseCases ', () => {
     expect(addTodoRepositorySpy.nonce).toBe(1)
     expect(addSpy).toHaveBeenCalledTimes(1)
   })
+
+  test('Should return null AddTodoRepository', async () => {
+    const { sut, addTodoRepositorySpy } = makeSut()
+    addTodoRepositorySpy.result = null
+
+    const todoResponse = await sut.add(addTodoParams)
+
+    expect(todoResponse).toBeNull()
+  })
 })
