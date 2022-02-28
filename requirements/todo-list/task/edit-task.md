@@ -36,3 +36,15 @@ Então poderão ser alterados as infos de taskName e taskActive.
 ❌ Retorna erro 500 se o ID não estiver no formato UUID
 
 ❌ ✅
+
+### Funcionalidade 
+
+Eu como cliente
+Quero ver minhas TASKS cadastradas
+Para o poder setar qual tarefa foi concluída.
+
+### Cenários
+
+Dado que estou no site de TASKS como cliente
+Quando ele modifica a informação taskIsDone na Listar TASKS
+Então serão exibidos os resultados da TASKS atualizados.
