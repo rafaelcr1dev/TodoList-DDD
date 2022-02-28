@@ -26,3 +26,12 @@ describe('AddTodo Smoke test UseCases', () => {
     expect(new AddTodo().add).toBeDefined()
   })
 })
+
+describe('AddTodo UseCases ', () => {
+  test('Should call add with correct params', () => {
+    const { sut } = makeSut()
+    const addSpy = jest.spyOn(sut, 'add')
+    sut.add({ todoName: 'Any Name' })
+    expect(addSpy).toHaveBeenCalledWith({ todoName: 'Any Name' })
+  })
+})
