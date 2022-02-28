@@ -117,4 +117,15 @@ describe('AddTodo UseCases ', () => {
 
     expect(result.todoId).toBe('valid-id')
   })
+
+  test('Should throw if GenerateIdRepository throws', async () => {
+    const { sut, generateIdRepositorySpy } = makeSut()
+    jest
+      .spyOn(generateIdRepositorySpy, 'generate')
+      .mockImplementationOnce(throwError)
+
+    const promise = sut.add(addTodoParams)
+
+    await expect(promise).rejects.toThrow()
+  })
 })
