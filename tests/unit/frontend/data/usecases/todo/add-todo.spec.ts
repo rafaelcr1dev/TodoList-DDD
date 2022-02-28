@@ -1,10 +1,14 @@
 import { AddTodo } from '@/frontend/data/usecases/todo'
+
 import { AddTodoRepositorySpy } from '../../mocks'
+import { mockAddTodoParams } from '../../../domain/mocks'
 
 type SutTypes = {
   sut: AddTodo
   addTodoRepositorySpy: AddTodoRepositorySpy
 }
+
+const addTodoParams = mockAddTodoParams()
 
 const makeSut = (): SutTypes => {
   const addTodoRepositorySpy = new AddTodoRepositorySpy()
@@ -31,14 +35,28 @@ describe('AddTodo UseCases ', () => {
   test('Should call AddTodo with correct params', () => {
     const { sut } = makeSut()
     const addSpy = jest.spyOn(sut, 'add')
-    sut.add({ todoName: 'Any Name' })
-    expect(addSpy).toHaveBeenCalledWith({ todoName: 'Any Name' })
+    sut.add(addTodoParams)
+    expect(addSpy).toHaveBeenCalledWith(addTodoParams)
   })
 
   test('Should call AddTodoRepository with correct params', () => {
     const { sut, addTodoRepositorySpy } = makeSut()
     const addTodoRepository = jest.spyOn(addTodoRepositorySpy, 'add')
-    sut.add({ todoName: 'Any Name' })
-    expect(addTodoRepository).toHaveBeenCalledWith({ todoName: 'Any Name' })
+    sut.add(addTodoParams)
+    expect(addTodoRepository).toHaveBeenCalledWith(addTodoParams)
+  })
+
+  test('Should call AddTodo be called time once', async () => {
+    const { sut } = makeSut()
+    const addSpy = jest.spyOn(sut, 'add')
+    await sut.add(addTodoParams)
+    expect(addSpy).toHaveBeenCalledTimes(1)
+  })
+
+  test('Should call AddTodoRepository be called time once', async () => {
+    const { sut, addTodoRepositorySpy } = makeSut()
+    jest.spyOn(addTodoRepositorySpy, 'add')
+    await sut.add(addTodoParams)
+    expect(addTodoRepositorySpy.nonce).toBe(1)
   })
 })
