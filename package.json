@@ -16,6 +16,7 @@
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+    "test:clear": "jest --clearCache",
     "prepare": "husky install"
   },
   "repository": "https://github.com/rafaelcr1dev/TodoList-DDD.git",
