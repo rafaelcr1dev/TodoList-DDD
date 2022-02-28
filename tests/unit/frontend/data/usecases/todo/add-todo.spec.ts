@@ -2,21 +2,25 @@ import { AddTodo } from '@/frontend/data/usecases/todo'
 
 import { AddTodoRepositorySpy, throwError } from '../../mocks'
 import { mockAddTodoParams } from '../../../domain/mocks'
+import { GenerateIdRepositorySpy } from '../../mocks/mock-id'
 
 type SutTypes = {
   sut: AddTodo
   addTodoRepositorySpy: AddTodoRepositorySpy
+  generateIdRepositorySpy: GenerateIdRepositorySpy
 }
 
 const addTodoParams = mockAddTodoParams()
 
 const makeSut = (): SutTypes => {
   const addTodoRepositorySpy = new AddTodoRepositorySpy()
-  const sut = new AddTodo(addTodoRepositorySpy)
+  const generateIdRepositorySpy = new GenerateIdRepositorySpy()
+  const sut = new AddTodo(addTodoRepositorySpy, generateIdRepositorySpy)
 
   return {
     sut,
-    addTodoRepositorySpy
+    addTodoRepositorySpy,
+    generateIdRepositorySpy
   }
 }
 
@@ -43,13 +47,22 @@ describe('AddTodo UseCases ', () => {
   })
 
   test('Should call AddTodoRepository with correct params', async () => {
-    const { sut, addTodoRepositorySpy } = makeSut()
+    const { sut, addTodoRepositorySpy, generateIdRepositorySpy } = makeSut()
+    generateIdRepositorySpy.id = 'valid-id'
+
     const addTodoRepository = jest.spyOn(addTodoRepositorySpy, 'add')
 
     await sut.add(addTodoParams)
 
-    expect(addTodoRepository).toHaveBeenCalledWith(addTodoParams)
-    expect(addTodoRepositorySpy.params).toEqual(addTodoParams)
+    expect(addTodoRepository).toHaveBeenCalledWith({
+      ...addTodoParams,
+      todoId: generateIdRepositorySpy.id
+    })
+
+    expect(addTodoRepositorySpy.params).toEqual({
+      ...addTodoParams,
+      todoId: generateIdRepositorySpy.id
+    })
   })
 
   test('Should call AddTodo be called time once', async () => {
@@ -87,5 +100,21 @@ describe('AddTodo UseCases ', () => {
     const promise = sut.add(addTodoParams)
 
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should validate if GenerateIdRepository is invalid', async () => {
+    const { sut, generateIdRepositorySpy } = makeSut()
+    generateIdRepositorySpy.id = 'invalid-id'
+
+    const result = await sut.add(addTodoParams)
+
+    expect(result.todoId).toBe('invalid-id')
+  })
+
+  test('Should validate if GenerateIdRepository is valid', async () => {
+    const { sut } = makeSut()
+    const result = await sut.add(addTodoParams)
+
+    expect(result.todoId).toBe('valid-id')
   })
 })
