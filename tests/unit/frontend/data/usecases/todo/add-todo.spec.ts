@@ -1,13 +1,19 @@
 import { AddTodo } from '@/frontend/data/usecases/todo'
 
-import { AddTodoRepositorySpy, throwError } from '../../mocks'
+import {
+  AddTodoRepositorySpy,
+  throwError,
+  GenerateIdRepositorySpy,
+  ValidateIdRepositorySpy
+} from '../../mocks'
+
 import { mockAddTodoParams } from '../../../domain/mocks'
-import { GenerateIdRepositorySpy } from '../../mocks/mock-id'
 
 type SutTypes = {
   sut: AddTodo
   addTodoRepositorySpy: AddTodoRepositorySpy
   generateIdRepositorySpy: GenerateIdRepositorySpy
+  validateIdRepositorySpy: ValidateIdRepositorySpy
 }
 
 const addTodoParams = mockAddTodoParams()
@@ -15,12 +21,19 @@ const addTodoParams = mockAddTodoParams()
 const makeSut = (): SutTypes => {
   const addTodoRepositorySpy = new AddTodoRepositorySpy()
   const generateIdRepositorySpy = new GenerateIdRepositorySpy()
-  const sut = new AddTodo(addTodoRepositorySpy, generateIdRepositorySpy)
+  const validateIdRepositorySpy = new ValidateIdRepositorySpy()
+
+  const sut = new AddTodo(
+    addTodoRepositorySpy,
+    generateIdRepositorySpy,
+    validateIdRepositorySpy
+  )
 
   return {
     sut,
     addTodoRepositorySpy,
-    generateIdRepositorySpy
+    generateIdRepositorySpy,
+    validateIdRepositorySpy
   }
 }
 
@@ -109,6 +122,15 @@ describe('AddTodo UseCases ', () => {
     const result = await sut.add(addTodoParams)
 
     expect(result.todoId).toBe('invalid-id')
+  })
+
+  test('Should validate if GenerateIdRepository isValid', async () => {
+    const { sut, validateIdRepositorySpy } = makeSut()
+    validateIdRepositorySpy.isValid = false
+
+    const result = await sut.add(addTodoParams)
+
+    expect(result).toBeNull()
   })
 
   test('Should validate if GenerateIdRepository is valid', async () => {
