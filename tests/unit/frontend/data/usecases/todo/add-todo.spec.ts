@@ -1,13 +1,4 @@
-import { AddTodoProtocol } from 'frontend/domain/usecases/todo/add-todo-protocol'
-
-class AddTodo implements AddTodoProtocol {
-  async add(params: AddTodoProtocol.Params): Promise<AddTodoProtocol.Result> {
-    return new Promise(() => ({
-      todoId: '123',
-      todoName: 'any-name'
-    }))
-  }
-}
+import { AddTodo } from '@/frontend/data/usecases/todo'
 
 const makeSut = (): any => {
   const sut = new AddTodo()
