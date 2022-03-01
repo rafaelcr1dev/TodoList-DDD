@@ -1,4 +1,11 @@
 import { TodoUUIDRepository } from '@/frontend/infra/generate-id'
+import uuid from 'uuid'
+
+jest.mock('uuid', () => ({
+  v4(): string {
+    return 'any-valid-id'
+  }
+}))
 
 type SutTypes = {
   sut: TodoUUIDRepository
@@ -29,5 +36,13 @@ describe('TodoUUID Smoke Test Repository', () => {
 })
 
 describe('TodoUUID Repository', () => {
-  describe('Generate', () => {})
+  test('Should generate TodoUUIDRepository is valid', async () => {
+    const { sut } = makeSut()
+    const todoId = await sut.generate()
+
+    expect(todoId).toBe('any-valid-id')
+    expect(todoId).not.toBeNull()
+    expect(todoId).not.toBeFalsy()
+    expect(typeof todoId).toBe('string')
+  })
 })
