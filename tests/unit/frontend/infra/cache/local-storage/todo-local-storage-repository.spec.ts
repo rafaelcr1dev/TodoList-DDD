@@ -73,4 +73,19 @@ describe('TodoLocalStorage Repository', () => {
 
     expect(setItemSpy).toHaveBeenCalledTimes(1)
   })
+
+  test('Should add correct values on localStorage with success', async () => {
+    const { sut } = makeSut()
+
+    const todoResult = await sut.add({
+      todoId: 'any-valid-id',
+      todoName: 'Any todo name'
+    })
+
+    expect(todoResult).toEqual({
+      todoId: 'any-valid-id',
+      todoName: 'Any todo name',
+      todoActive: true
+    })
+  })
 })
