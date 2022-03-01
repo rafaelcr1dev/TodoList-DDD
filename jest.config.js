@@ -1,6 +1,6 @@
 module.exports = {
   roots: ['<rootDir>/src', '<rootDir>/tests/unit'],
-  resetMocks: false,
+  resetMocks: true,
   setupFiles: ['jest-localstorage-mock'],
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}',

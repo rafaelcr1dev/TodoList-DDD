@@ -9,12 +9,15 @@ export class TodoLocalStorageRepository implements AddTodoRepository {
       todoActive: true
     }
 
-    const todos: AddTodoRepository.Result[] | null = JSON.parse(
-      localStorage.getItem('todos')
-    )
+    const storageTodos = localStorage.getItem('todos')
+
+    const todos: AddTodoRepository.Result[] | null = storageTodos
+      ? JSON.parse(storageTodos)
+      : []
 
     const todoList: AddTodoRepository.Result[] =
       todos && typeof todoNew === 'object' ? todos : []
+
     todoList.push(todoNew)
 
     localStorage.setItem('todos', JSON.stringify(todoList))
