@@ -4,6 +4,9 @@ import uuid from 'uuid'
 jest.mock('uuid', () => ({
   v4(): string {
     return 'any-valid-id'
+  },
+  validate(id: string): boolean {
+    return id === 'any-valid-id'
   }
 }))
 
@@ -44,5 +47,12 @@ describe('TodoUUID Repository', () => {
     expect(todoId).not.toBeNull()
     expect(todoId).not.toBeFalsy()
     expect(typeof todoId).toBe('string')
+  })
+
+  test('Should generate TodoUUIDRepository is invalid', async () => {
+    const { sut } = makeSut()
+    const isValidId = await sut.validate('any-invalid-id')
+
+    expect(isValidId).toBeFalsy()
   })
 })
