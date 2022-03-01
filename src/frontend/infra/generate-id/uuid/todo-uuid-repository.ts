@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+import uuid from 'uuid'
 
 import {
   GenerateIdRepository,
@@ -9,12 +9,12 @@ export class TodoUUIDRepository
   implements GenerateIdRepository, ValidateIdRepository
 {
   async generate(): Promise<GenerateIdRepository.Result> {
-    return uuidv4()
+    return uuid.v4()
   }
 
   async validate(
     id: ValidateIdRepository.Params
   ): Promise<ValidateIdRepository.Result> {
-    return true
+    return uuid.validate(id)
   }
 }
