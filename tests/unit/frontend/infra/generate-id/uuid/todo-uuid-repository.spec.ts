@@ -39,7 +39,7 @@ describe('TodoUUID Smoke Test Repository', () => {
 })
 
 describe('TodoUUID Repository', () => {
-  test('Should generate TodoUUIDRepository is valid', async () => {
+  test('Should generate if TodoUUIDRepository is valid', async () => {
     const { sut } = makeSut()
     const todoId = await sut.generate()
 
@@ -49,10 +49,17 @@ describe('TodoUUID Repository', () => {
     expect(typeof todoId).toBe('string')
   })
 
-  test('Should generate TodoUUIDRepository is invalid', async () => {
+  test('Should validate if TodoUUIDRepository is invalid', async () => {
     const { sut } = makeSut()
     const isValidId = await sut.validate('any-invalid-id')
 
     expect(isValidId).toBeFalsy()
+  })
+
+  test('Should validate if TodoUUIDRepository is valid', async () => {
+    const { sut } = makeSut()
+    const isValidId = await sut.validate('any-valid-id')
+
+    expect(isValidId).toBeTruthy()
   })
 })
