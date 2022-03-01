@@ -1,5 +1,5 @@
 export interface GenerateIdRepository {
-  generate: () => GenerateIdRepository.Result
+  generate: () => Promise<GenerateIdRepository.Result>
 }
 
 export namespace GenerateIdRepository {

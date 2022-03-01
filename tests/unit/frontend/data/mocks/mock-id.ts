@@ -6,8 +6,8 @@ import {
 export class GenerateIdRepositorySpy implements GenerateIdRepository {
   id: string = 'valid-id'
 
-  generate(): GenerateIdRepository.Result {
-    return this.id
+  async generate(): Promise<GenerateIdRepository.Result> {
+    return Promise.resolve(this.id)
   }
 }
 
