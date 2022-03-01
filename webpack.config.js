@@ -1,6 +1,6 @@
-const path = require("path");
-const webpack = require('webpack');
-const LiveReloadPlugin = require('webpack-livereload-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const LiveReloadPlugin = require('webpack-livereload-plugin')
 
 module.exports = {
   mode: 'development',
@@ -20,14 +20,12 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js']
   },
-  plugins: [
-    new LiveReloadPlugin()
-  ]
+  plugins: [new LiveReloadPlugin()]
 }

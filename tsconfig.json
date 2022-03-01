@@ -4,7 +4,12 @@
     "sourceMap": true,  
     "jsx": "react",                      
     "module": "commonjs",                     
-    "lib": ["es6"],                             
+    "lib": [
+      "es6",
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],                             
     "allowJs": true,                       
     "outDir": "./dist",                        
     "rootDirs": ["src", "tests"],     

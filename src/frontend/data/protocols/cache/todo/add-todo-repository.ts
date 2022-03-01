@@ -1,5 +1,3 @@
-import { AddTodoModel } from 'frontend/domain/models/add-todo-model'
-
 export interface AddTodoRepository {
   add: (params: AddTodoRepository.Params) => Promise<AddTodoRepository.Result>
 }
@@ -10,5 +8,9 @@ export namespace AddTodoRepository {
     todoId: string
   }
 
-  export type Result = AddTodoModel
+  export type Result = {
+    todoId: string
+    todoName: string
+    todoActive: boolean
+  }
 }
