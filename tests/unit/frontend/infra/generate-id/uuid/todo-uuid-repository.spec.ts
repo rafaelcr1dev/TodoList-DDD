@@ -62,4 +62,12 @@ describe('TodoUUID Repository', () => {
 
     expect(isValidId).toBeTruthy()
   })
+
+  test('Should call uuid.validate with correct value', async () => {
+    const { sut } = makeSut()
+    const uuidSpy = jest.spyOn(uuid, 'validate')
+
+    await sut.validate('any-valid-id')
+    expect(uuidSpy).toHaveBeenCalledWith('any-valid-id')
+  })
 })
