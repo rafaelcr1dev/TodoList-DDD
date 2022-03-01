@@ -21,3 +21,20 @@ describe('TodoLocalStorage Smoke test Repository', () => {
     expect(sut.add).toBeDefined()
   })
 })
+
+describe('TodoLocalStorage Repository', () => {
+  test('Should call add with correct values', async () => {
+    const { sut } = makeSut()
+    const addSpy = jest.spyOn(sut, 'add')
+
+    await sut.add({
+      todoId: 'any-valid-id',
+      todoName: 'Any todo name'
+    })
+
+    expect(addSpy).toHaveBeenCalledWith({
+      todoId: 'any-valid-id',
+      todoName: 'Any todo name'
+    })
+  })
+})
