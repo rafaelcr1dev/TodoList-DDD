@@ -9,4 +9,6 @@ export class ValidationBuilder {
   static field(fieldName: string): ValidationBuilder {
     return new ValidationBuilder(fieldName, [])
   }
+
+  required(): any {}
 }
