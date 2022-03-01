@@ -1,5 +1,7 @@
+import faker from '@faker-js/faker'
 import { RequiredFieldError } from '@/frontend/validation/errors'
 import { RequiredFieldValidation } from '@/frontend/validation/validators/required-field/required-field-validation'
+
 const makeSut = (field: string): RequiredFieldValidation =>
   new RequiredFieldValidation(field)
 
@@ -16,11 +18,11 @@ describe('RequiredFieldValidation Smoke Tests', () => {
 
 describe('RequiredFieldValidation', () => {
   test('Should call RequiredFieldValidation with correct values', () => {
-    const sut = makeSut('name')
+    const sut = makeSut(faker.database.column())
     const validateSpy = jest.spyOn(sut, 'validate')
 
     const input = {
-      name: 'Any Name Todo'
+      name: faker.random.word()
     }
 
     sut.validate(input)
@@ -28,7 +30,7 @@ describe('RequiredFieldValidation', () => {
   })
 
   test('Should return error if field is empty', () => {
-    const field = 'name'
+    const field = faker.database.column()
     const sut = makeSut(field)
     const error = sut.validate({ [field]: '' })
 
@@ -36,9 +38,9 @@ describe('RequiredFieldValidation', () => {
   })
 
   test('Should return falsy if field is not empty', () => {
-    const field = 'name'
+    const field = faker.database.column()
     const sut = makeSut(field)
-    const resultValidate = sut.validate({ [field]: 'Any thing' })
+    const resultValidate = sut.validate({ [field]: faker.random.word() })
 
     expect(resultValidate).toBeFalsy()
   })
