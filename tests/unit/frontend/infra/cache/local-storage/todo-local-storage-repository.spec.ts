@@ -1,5 +1,5 @@
+import 'jest-localstorage-mock'
 import { TodoLocalStorageRepository } from '@/frontend/infra/cache/local-storage/todo-local-storage-repository'
-
 type SutTypes = {
   sut: TodoLocalStorageRepository
 }
@@ -23,6 +23,10 @@ describe('TodoLocalStorage Smoke test Repository', () => {
 })
 
 describe('TodoLocalStorage Repository', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
   test('Should call add with correct values', async () => {
     const { sut } = makeSut()
     const addSpy = jest.spyOn(sut, 'add')
@@ -36,5 +40,23 @@ describe('TodoLocalStorage Repository', () => {
       todoId: 'any-valid-id',
       todoName: 'Any todo name'
     })
+  })
+
+  test('Should call localStorage with correct values', async () => {
+    const { sut } = makeSut()
+    await sut.add({
+      todoId: 'any-valid-id',
+      todoName: 'Any todo name'
+    })
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'todos',
+      JSON.stringify([
+        {
+          todoId: 'any-valid-id',
+          todoName: 'Any todo name',
+          todoActive: true
+        }
+      ])
+    )
   })
 })

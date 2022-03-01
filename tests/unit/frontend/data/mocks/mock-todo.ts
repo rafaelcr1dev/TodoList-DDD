@@ -5,7 +5,8 @@ export class AddTodoRepositorySpy implements AddTodoRepository {
   params: AddTodoRepository.Params
   result: AddTodoRepository.Result = {
     todoId: 'valid-id',
-    todoName: 'any name'
+    todoName: 'any name',
+    todoActive: true
   }
 
   async add(
