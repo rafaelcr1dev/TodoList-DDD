@@ -4,4 +4,8 @@ describe('RequiredFieldValidation Smoke Tests', () => {
   test('Should be exists RequiredFieldValidation', () => {
     expect(RequiredFieldValidation).toBeDefined()
   })
+
+  test('Should be exists call validate of RequiredFieldValidation', () => {
+    expect(new RequiredFieldValidation().validate).toBeDefined()
+  })
 })
