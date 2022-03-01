@@ -82,10 +82,9 @@ describe('TodoUUID Repository', () => {
 
   test('Should call TodoUUIDRepository be called uuid.validate once', async () => {
     const { sut } = makeSut()
-    const generateSpy = jest.spyOn(uuid, 'validate')
+    const validateSpy = jest.spyOn(uuid, 'validate')
 
-    await sut.generate()
-
-    expect(generateSpy).toHaveBeenCalledTimes(1)
+    await sut.validate('any-valid-id')
+    expect(validateSpy).toHaveBeenCalledTimes(1)
   })
 })

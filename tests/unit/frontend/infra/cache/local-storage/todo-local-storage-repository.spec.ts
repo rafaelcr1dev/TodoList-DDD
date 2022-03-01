@@ -44,10 +44,12 @@ describe('TodoLocalStorage Repository', () => {
 
   test('Should call localStorage with correct values', async () => {
     const { sut } = makeSut()
+
     await sut.add({
       todoId: 'any-valid-id',
       todoName: 'Any todo name'
     })
+
     expect(localStorage.setItem).toHaveBeenCalledWith(
       'todos',
       JSON.stringify([
@@ -58,5 +60,17 @@ describe('TodoLocalStorage Repository', () => {
         }
       ])
     )
+  })
+
+  test('Should call localStorage be called setItem once', async () => {
+    const { sut } = makeSut()
+    const setItemSpy = jest.spyOn(localStorage, 'setItem')
+
+    await sut.add({
+      todoId: 'any-valid-id',
+      todoName: 'Any todo name'
+    })
+
+    expect(setItemSpy).toHaveBeenCalledTimes(1)
   })
 })
