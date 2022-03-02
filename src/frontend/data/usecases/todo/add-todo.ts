@@ -1,3 +1,4 @@
+import { InvalidIdError } from '@/frontend/domain/errors'
 import { AddTodoProtocol } from 'frontend/domain/usecases/todo/add-todo-protocol'
 import {
   AddTodoRepository,
@@ -25,6 +26,6 @@ export class AddTodo implements AddTodoProtocol {
       if (todo) return todo
     }
 
-    return null
+    throw new InvalidIdError()
   }
 }
