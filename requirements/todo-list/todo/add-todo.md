@@ -22,6 +22,7 @@ Então sera adicionado um novo TODO no formulário.
 ❌ Valida dado obrigatório de todoName
 ❌ Valida se o formato do todoName esta dentro do esperado
 ❌ Gera um ID aleatório para o TODO no formato UUID
+❌ Verifica de o ID aleatório está no formato valido
 ❌ Valida se os dados obrigatórios foram enviado para o LocalStorage
 ❌ Cria o TODO com os dados fornecidos
 ❌ Retorna 200, com o id e todoName
