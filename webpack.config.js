@@ -1,10 +1,9 @@
 const path = require('path')
-const webpack = require('webpack')
 const LiveReloadPlugin = require('webpack-livereload-plugin')
 
 module.exports = {
   mode: 'development',
-  entry: './src/frontend/index.js',
+  entry: './src/frontend/main/index.tsx',
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'dist/public'),

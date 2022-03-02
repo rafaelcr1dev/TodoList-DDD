@@ -4,9 +4,9 @@ import fs from 'fs'
 import axios from 'axios'
 import express from 'express'
 
-import AppComponent from '../frontend/App'
+import AppComponent from '../frontend/presentation/components/app'
 
-const PORT = process.env.PORT || 3006
+const PORT = process.env.PORT || 3000
 const app = express()
 
 app.get('/', function (req, res) {
@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
     data = ''
     console.error(err)
   } finally {
-    axios.get('http://localhost:3030/comments').then(function (response) {
+    axios.get(`http://localhost:${PORT}/comments`).then(function (response) {
       res.send(
         data.replace(
           '<div id="app"></div>',

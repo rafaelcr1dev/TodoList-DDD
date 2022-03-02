@@ -1,9 +1,9 @@
-import uuid from 'uuid'
+import * as uuid from 'uuid'
 
 import {
   GenerateIdRepository,
   ValidateIdRepository
-} from '@/frontend/data/protocols/cache/todo'
+} from '../../../data/protocols/cache/todo'
 
 export class TodoUUIDRepository
   implements GenerateIdRepository, ValidateIdRepository

@@ -1,4 +1,4 @@
-import { AddTodoRepository } from '@/frontend/data/protocols/cache/todo'
+import { AddTodoRepository } from '../../../data/protocols/cache/todo'
 
 export class TodoLocalStorageRepository implements AddTodoRepository {
   async add(
