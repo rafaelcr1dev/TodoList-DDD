@@ -13,7 +13,7 @@
     "allowJs": true,                       
     "outDir": "./dist",                        
     "rootDirs": ["src", "tests"],     
-    "baseUrl": "src",               
+    "baseUrl": "src",            
     "removeComments": true,                
     "typeRoots": [
       "./node_modules/@types",
@@ -26,11 +26,6 @@
     "skipLibCheck": true,                     
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@models/*": ["./src/models/*"],
-      "@views/*": ["./src/views/*"],
-      "@config/*": ["./src/config/*"],
-      "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
     }
   },

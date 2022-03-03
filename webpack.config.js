@@ -13,18 +13,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.js/,
-        use: 'babel-loader'
-      },
-      {
-        test: /\.tsx?$/,
+        test: /\.ts(x?)$/,
         use: 'ts-loader',
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
+    extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@': path.join(__dirname, 'src')
+    }
   },
   plugins: [new LiveReloadPlugin()]
 }

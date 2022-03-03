@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Todo: React.FC = ({ addTodo, validation }) => {
+const Todo: React.FC<any> = ({ addTodo, validation }) => {
   const [inputName, setInputName] = useState('')
 
   async function handleSubmit(e): Promise<void> {
