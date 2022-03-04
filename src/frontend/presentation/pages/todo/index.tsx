@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Todo: React.FC<any> = ({ addTodo, validation }) => {
   const [inputName, setInputName] = useState('')
@@ -26,6 +27,9 @@ const Todo: React.FC<any> = ({ addTodo, validation }) => {
   return (
     <div>
       <h1>Nova Todo List</h1>
+      <nav>
+        <Link to="/demo">About</Link>
+      </nav>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import Router from '../presentation/components/router'
 
-import AppComponent from '../presentation/components/app'
-import { MakeTodo } from './factories/components/todo-factory'
+import { makeTodo } from './factories/components/todo-factory'
 
 ReactDOM.hydrate(
-  <AppComponent>
-    <MakeTodo />
-  </AppComponent>,
-  document.querySelector('#root')
+  <BrowserRouter>
+    <Router makeTodo={makeTodo} />
+  </BrowserRouter>,
+  document.documentElement
 )

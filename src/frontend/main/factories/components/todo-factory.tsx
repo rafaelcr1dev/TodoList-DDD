@@ -1,9 +1,9 @@
 import React from 'react'
 import { makeTodoValidationFactory } from './todo-validation-factory'
 import { makeAddTodoFactory } from '../usecases/add-todo/add-todo-factory'
-import Todo from '../../../presentation/components/todo'
+import Todo from '@/frontend/presentation/pages/todo'
 
-export const MakeTodo: React.FC = () => {
+export const makeTodo: React.FC = () => {
   return (
     <div>
       <Todo

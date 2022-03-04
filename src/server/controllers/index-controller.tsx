@@ -2,19 +2,20 @@ import React from 'react'
 import ReactDOM from 'react-dom/server'
 import axios from 'axios'
 import { Request, Response } from 'express'
-import { Render } from '../utils'
+import { StaticRouter } from 'react-router-dom/server'
 
-import AppComponent from '@/frontend/presentation/components/app'
-import { MakeTodo } from '@/frontend/main/factories/components/todo-factory'
+import { Render } from '../utils'
+import { makeTodo } from '@/frontend/main/factories/components/todo-factory'
+import Router from '@/frontend/presentation/components/router'
 
 export default function (req: Request, res: Response): any {
   axios.get(`http://localhost:3000/comments`).then(function (response) {
     res.send(
       Render(
         ReactDOM.renderToString(
-          <AppComponent>
-            <MakeTodo />
-          </AppComponent>
+          <StaticRouter location={req.url}>
+            <Router makeTodo={makeTodo} />
+          </StaticRouter>
         )
       )
     )
