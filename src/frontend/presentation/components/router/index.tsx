@@ -10,16 +10,12 @@ const Router: React.FC<Factory> = (factory: Factory) => {
 
   return (
     <>
-      <head>
-        <title>Server Rendered App</title>
-      </head>
+      <head></head>
       <body>
         <Routes>
           <Route path="/" element={<Todo />} />
           <Route path="/demo" element={<Todo />} />
         </Routes>
-        <script src="http://localhost:35729/livereload.js"></script>
-        <script src="bundle_client.js"></script>
       </body>
     </>
   )
