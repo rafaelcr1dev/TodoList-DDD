@@ -1,6 +1,22 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import styled, { createGlobalStyle } from 'styled-components'
+const GlobalStyle = createGlobalStyle`
+ h2 {
+   font-size: 4rem;
+   color: #ff0000;
+ }
+`
+const Title = styled.h1`
+  font-size: 4rem;
+  color: #0000ff;
+`
+
+const Container = styled.div`
+  text-align: center;
+`
+
 const Todo: React.FC<any> = ({ addTodo, validation }) => {
   const [inputName, setInputName] = useState('')
 
@@ -26,7 +42,10 @@ const Todo: React.FC<any> = ({ addTodo, validation }) => {
 
   return (
     <div>
-      <h1>Nova Todo List</h1>
+      <Container>
+        <GlobalStyle />
+        <Title>Nova Todo List</Title>
+      </Container>
       <nav>
         <Link to="/demo">About</Link>
       </nav>
