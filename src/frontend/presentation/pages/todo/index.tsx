@@ -2,21 +2,7 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 
-import styled, { createGlobalStyle } from 'styled-components'
-const GlobalStyle = createGlobalStyle`
- h2 {
-   font-size: 4rem;
-   color: #ff0000;
- }
-`
-const Title = styled.h1`
-  font-size: 4rem;
-  color: #0000ff;
-`
-
-const Container = styled.div`
-  text-align: center;
-`
+import { Container, GlobalStyle, Title } from './styled'
 
 const Todo: React.FC<any> = ({ addTodo, validation }) => {
   const [inputName, setInputName] = useState('')
@@ -34,7 +20,7 @@ const Todo: React.FC<any> = ({ addTodo, validation }) => {
 
       console.log(todoResult)
 
-      alert('Todo cadastrado com successo!')
+      alert('Todo cadastrado com sucesso!')
       setInputName('')
     } catch (error) {
       alert(error.message)

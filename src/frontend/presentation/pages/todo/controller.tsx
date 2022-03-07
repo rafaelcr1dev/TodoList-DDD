@@ -26,5 +26,7 @@ export default function (req: Request, res: Response, next: NextFunction): any {
     )
   } catch (error) {
     return next(error)
+  } finally {
+    sheet.seal()
   }
 }
