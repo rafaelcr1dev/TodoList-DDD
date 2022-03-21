@@ -1,7 +1,12 @@
-export interface ValidateIdRepository {
+export interface ManagerIdRepository {
+  generate: () => Promise<GenerateIdRepository.Result>
   validate: (
     id: ValidateIdRepository.Params
   ) => Promise<ValidateIdRepository.Result>
+}
+
+export namespace GenerateIdRepository {
+  export type Result = string
 }
 
 export namespace ValidateIdRepository {

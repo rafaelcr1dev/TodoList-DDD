@@ -1,18 +1,16 @@
 import {
   ValidateIdRepository,
-  GenerateIdRepository
+  GenerateIdRepository,
+  ManagerIdRepository
 } from '@/frontend/data/protocols/cache/todo'
 
-export class GenerateIdRepositorySpy implements GenerateIdRepository {
+export class ManagerIdRepositorySpy implements ManagerIdRepository {
   id: string = 'valid-id'
+  isValid: boolean = true
 
   async generate(): Promise<GenerateIdRepository.Result> {
     return Promise.resolve(this.id)
   }
-}
-
-export class ValidateIdRepositorySpy implements ValidateIdRepository {
-  isValid: boolean = true
 
   async validate(
     id: ValidateIdRepository.Params

@@ -3,8 +3,7 @@ import { AddTodo } from '@/frontend/data/usecases/todo'
 import {
   AddTodoRepositorySpy,
   throwError,
-  GenerateIdRepositorySpy,
-  ValidateIdRepositorySpy
+  ManagerIdRepositorySpy
 } from '../../mocks'
 
 import { mockAddTodoParams } from '../../../domain/mocks'
@@ -12,28 +11,21 @@ import { mockAddTodoParams } from '../../../domain/mocks'
 type SutTypes = {
   sut: AddTodo
   addTodoRepositorySpy: AddTodoRepositorySpy
-  generateIdRepositorySpy: GenerateIdRepositorySpy
-  validateIdRepositorySpy: ValidateIdRepositorySpy
+  managerIdRepositorySpy: ManagerIdRepositorySpy
 }
 
 const addTodoParams = mockAddTodoParams()
 
 const makeSut = (): SutTypes => {
   const addTodoRepositorySpy = new AddTodoRepositorySpy()
-  const generateIdRepositorySpy = new GenerateIdRepositorySpy()
-  const validateIdRepositorySpy = new ValidateIdRepositorySpy()
+  const managerIdRepositorySpy = new ManagerIdRepositorySpy()
 
-  const sut = new AddTodo(
-    addTodoRepositorySpy,
-    generateIdRepositorySpy,
-    validateIdRepositorySpy
-  )
+  const sut = new AddTodo(addTodoRepositorySpy, managerIdRepositorySpy)
 
   return {
     sut,
     addTodoRepositorySpy,
-    generateIdRepositorySpy,
-    validateIdRepositorySpy
+    managerIdRepositorySpy
   }
 }
 
@@ -60,8 +52,8 @@ describe('AddTodo UseCases ', () => {
   })
 
   test('Should call AddTodoRepository with correct params', async () => {
-    const { sut, addTodoRepositorySpy, generateIdRepositorySpy } = makeSut()
-    generateIdRepositorySpy.id = 'valid-id'
+    const { sut, addTodoRepositorySpy, managerIdRepositorySpy } = makeSut()
+    managerIdRepositorySpy.id = 'valid-id'
 
     const addTodoRepository = jest.spyOn(addTodoRepositorySpy, 'add')
 
@@ -69,12 +61,12 @@ describe('AddTodo UseCases ', () => {
 
     expect(addTodoRepository).toHaveBeenCalledWith({
       ...addTodoParams,
-      todoId: generateIdRepositorySpy.id
+      todoId: managerIdRepositorySpy.id
     })
 
     expect(addTodoRepositorySpy.params).toEqual({
       ...addTodoParams,
-      todoId: generateIdRepositorySpy.id
+      todoId: managerIdRepositorySpy.id
     })
   })
 
@@ -106,35 +98,35 @@ describe('AddTodo UseCases ', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should validate if GenerateIdRepository is invalid', async () => {
-    const { sut, generateIdRepositorySpy } = makeSut()
-    generateIdRepositorySpy.id = 'invalid-id'
+  test('Should validate if managerIdRepository is invalid', async () => {
+    const { sut, managerIdRepositorySpy } = makeSut()
+    managerIdRepositorySpy.id = 'invalid-id'
 
     const result = await sut.add(addTodoParams)
 
     expect(result.todoId).toBe('invalid-id')
   })
 
-  test('Should validate if GenerateIdRepository isValid', async () => {
-    const { sut, validateIdRepositorySpy } = makeSut()
-    validateIdRepositorySpy.isValid = false
+  test('Should validate if managerIdRepository isValid', async () => {
+    const { sut, managerIdRepositorySpy } = makeSut()
+    managerIdRepositorySpy.isValid = false
 
     const promise = sut.add(addTodoParams)
 
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should validate if GenerateIdRepository is valid', async () => {
+  test('Should validate if managerIdRepository is valid', async () => {
     const { sut } = makeSut()
     const result = await sut.add(addTodoParams)
 
     expect(result.todoId).toBe('valid-id')
   })
 
-  test('Should throw if GenerateIdRepository throws', async () => {
-    const { sut, generateIdRepositorySpy } = makeSut()
+  test('Should throw if managerIdRepository throws', async () => {
+    const { sut, managerIdRepositorySpy } = makeSut()
     jest
-      .spyOn(generateIdRepositorySpy, 'generate')
+      .spyOn(managerIdRepositorySpy, 'generate')
       .mockImplementationOnce(throwError)
 
     const promise = sut.add(addTodoParams)
@@ -142,11 +134,11 @@ describe('AddTodo UseCases ', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('Should throw if GenerateIdRepository validate return false', async () => {
-    const { sut, validateIdRepositorySpy } = makeSut()
+  test('Should throw if managerIdRepository validate return false', async () => {
+    const { sut, managerIdRepositorySpy } = makeSut()
 
     jest
-      .spyOn(validateIdRepositorySpy, 'validate')
+      .spyOn(managerIdRepositorySpy, 'validate')
       .mockReturnValueOnce(Promise.resolve(false))
 
     const promise = sut.add({

@@ -5,7 +5,6 @@ import { makeTodoUUIDRepositoryFactory } from '../../../../main/factories/genera
 export const makeAddTodoFactory = (): AddTodo => {
   return new AddTodo(
     makeTodoLocalStorageRepositoryFactory(),
-    makeTodoUUIDRepositoryFactory(),
     makeTodoUUIDRepositoryFactory()
   )
 }

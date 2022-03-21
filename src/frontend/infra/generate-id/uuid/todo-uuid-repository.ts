@@ -1,13 +1,12 @@
 import * as uuid from 'uuid'
 
 import {
+  ManagerIdRepository,
   GenerateIdRepository,
   ValidateIdRepository
 } from '../../../data/protocols/cache/todo'
 
-export class TodoUUIDRepository
-  implements GenerateIdRepository, ValidateIdRepository
-{
+export class TodoUUIDRepository implements ManagerIdRepository {
   async generate(): Promise<GenerateIdRepository.Result> {
     return uuid.v4()
   }
