@@ -39,14 +39,14 @@
 ### Cenários 2
 
 - Dado que estou no site de TASKS como cliente
-- Quando ele modifica a informação taskIsDone na Listar TASKS
+- Quando atualizado o status do taskIsDone na listar TASKS
 - Então serão exibidos os resultados da TASKS atualizados.
 
 ## UseCases 2
 
 ### Caso de sucesso
 
-- ❌ Altera um taskIsDone das TASK
+- ❌ Altera um taskIsDone das TASKS
 - ❌ Recebe as respostas da lista de TASKS atualizado
 - ❌ Retorna 200, com o id, taskName, taskActive e taskIsDone
 
