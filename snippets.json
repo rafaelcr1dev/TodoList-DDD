@@ -39,7 +39,9 @@
 			"})",
 			"",
 			"describe('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} UseCases', () => {",
-			"  test('Should call ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} with correct params', () => {})",
+			"  test('Should call ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} with correct params', () => {",
+      "    expect(1 + 1).toEqual(2)",
+      "  })",
 			"})",
 			""
     ],
@@ -60,6 +62,19 @@
       "}",
       "",
       "export default ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}",
+      ""
+    ],
+    "description": "Boilerplate for React Function Component"
+  },
+  "Class Generic": {
+    "prefix": ["class:tpl"],
+    "body": [
+      "// import { ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} } from '@/frontend/data/usecases/${TM_FILENAME_BASE}'",
+      "",
+      "export class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+      "  // constructor(private readonly name: string) {}",
+      "  method(): void {}",
+      "}",
       ""
     ],
     "description": "Boilerplate for React Function Component"
