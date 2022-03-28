@@ -1,20 +1,30 @@
 import { LoadTodos } from '@/frontend/data/usecases/todo'
 import { LoadTodoProtocol } from '@/frontend/domain/usecases'
 import { throwError } from '../../mocks'
+import { NotFoundResultsError } from '@/frontend/domain/errors'
 
-class LoadTodosRepositorySpy {
-  load(): LoadTodoProtocol.Result[] {
+class TodosRepositorySpy {
+  load(): LoadTodoProtocol.Result[] | null {
     return []
   }
 }
 
 type SutTypes = {
   sut: any
-  loadTodosRepositorySpy: LoadTodosRepositorySpy
+  loadTodosRepositorySpy: TodosRepositorySpy
 }
 
+const mockTodos = [
+  {
+    todoId: 'any-valid-id',
+    todoName: 'Any todo name',
+    todoActive: true,
+    taskIsDone: true
+  }
+]
+
 const makeSut = (): SutTypes => {
-  const loadTodosRepositorySpy = new LoadTodosRepositorySpy()
+  const loadTodosRepositorySpy = new TodosRepositorySpy()
   const sut = new LoadTodos(loadTodosRepositorySpy)
 
   return {
@@ -53,7 +63,7 @@ describe('LoadTodos UseCases', () => {
 
     const promise = sut.load()
 
-    expect(promise).rejects.toThrow()
+    await expect(promise).rejects.toThrow()
   })
 
   test('Should throw NotFoundResultError if LoadTodosRepository return empty list', async () => {
@@ -62,6 +72,15 @@ describe('LoadTodos UseCases', () => {
 
     const promise = sut.load()
 
-    expect(promise).rejects.toThrow()
+    await expect(promise).rejects.toThrow(new NotFoundResultsError())
+  })
+
+  test('Should LoadTodosRepository return the todos list with success', async () => {
+    const { sut, loadTodosRepositorySpy } = makeSut()
+    jest.spyOn(loadTodosRepositorySpy, 'load').mockReturnValueOnce(mockTodos)
+
+    const todosResults = await sut.load()
+
+    expect(todosResults).toEqual(mockTodos)
   })
 })

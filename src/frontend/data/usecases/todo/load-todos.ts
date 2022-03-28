@@ -2,10 +2,10 @@ import { NotFoundResultsError } from '@/frontend/domain/errors'
 import { LoadTodoProtocol } from '@/frontend/domain/usecases'
 
 export class LoadTodos implements LoadTodoProtocol {
-  constructor(private readonly loadTodosRepository: any) {}
+  constructor(private readonly todosRepository: any) {}
 
   async load(): Promise<LoadTodoProtocol.Result[]> {
-    const todos = await this.loadTodosRepository.load()
+    const todos = await this.todosRepository.load()
 
     if (todos.length) return todos
 
