@@ -1,7 +1,11 @@
 import { LoadTodos } from '@/frontend/data/usecases/todo'
+import { LoadTodoProtocol } from '@/frontend/domain/usecases'
+import { throwError } from '../../mocks'
 
 class LoadTodosRepositorySpy {
-  load(): void {}
+  load(): LoadTodoProtocol.Result[] {
+    return []
+  }
 }
 
 type SutTypes = {
@@ -39,5 +43,16 @@ describe('LoadTodos UseCases', () => {
     await sut.load()
 
     expect(loadSpy).toHaveBeenCalledTimes(1)
+  })
+
+  test('Should throw if LoadTodosRepository throws', async () => {
+    const { sut, loadTodosRepositorySpy } = makeSut()
+    jest
+      .spyOn(loadTodosRepositorySpy, 'load')
+      .mockImplementationOnce(throwError)
+
+    const promise = sut.load()
+
+    expect(promise).rejects.toThrow()
   })
 })
