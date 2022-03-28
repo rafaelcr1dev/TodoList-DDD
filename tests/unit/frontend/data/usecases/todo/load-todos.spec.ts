@@ -1,14 +1,21 @@
 import { LoadTodos } from '@/frontend/data/usecases/todo'
 
+class LoadTodosRepositorySpy {
+  load(): void {}
+}
+
 type SutTypes = {
   sut: any
+  loadTodosRepositorySpy: LoadTodosRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
-  const sut = new LoadTodos()
+  const loadTodosRepositorySpy = new LoadTodosRepositorySpy()
+  const sut = new LoadTodos(loadTodosRepositorySpy)
 
   return {
-    sut
+    sut,
+    loadTodosRepositorySpy
   }
 }
 
@@ -25,7 +32,12 @@ describe('LoadTodos SmokeTest UseCases', () => {
 })
 
 describe('LoadTodos UseCases', () => {
-  test('Should call LoadTodos with correct params', () => {
-    expect(1 + 1).toEqual(2)
+  test('Should call load be called time once', async () => {
+    const { sut } = makeSut()
+    const loadSpy = jest.spyOn(sut, 'load')
+
+    await sut.load()
+
+    expect(loadSpy).toHaveBeenCalledTimes(1)
   })
 })
