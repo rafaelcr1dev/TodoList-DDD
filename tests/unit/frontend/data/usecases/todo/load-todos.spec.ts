@@ -38,7 +38,7 @@ describe('LoadTodos SmokeTest UseCases', () => {
 describe('LoadTodos UseCases', () => {
   test('Should call load be called time once', async () => {
     const { sut } = makeSut()
-    const loadSpy = jest.spyOn(sut, 'load')
+    const loadSpy = jest.spyOn(sut, 'load').mockReturnValueOnce([{}])
 
     await sut.load()
 
@@ -50,6 +50,15 @@ describe('LoadTodos UseCases', () => {
     jest
       .spyOn(loadTodosRepositorySpy, 'load')
       .mockImplementationOnce(throwError)
+
+    const promise = sut.load()
+
+    expect(promise).rejects.toThrow()
+  })
+
+  test('Should throw NotFoundResultError if LoadTodosRepository return empty list', async () => {
+    const { sut, loadTodosRepositorySpy } = makeSut()
+    jest.spyOn(loadTodosRepositorySpy, 'load').mockReturnValueOnce([])
 
     const promise = sut.load()
 
