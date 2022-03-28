@@ -24,4 +24,12 @@ export class TodoLocalStorageRepository implements AddTodoRepository {
 
     return Promise.resolve(todoNew)
   }
+
+  async load(): Promise<AddTodoRepository.Result[] | undefined[]> {
+    const localStorageTodos = localStorage.getItem('todos')
+
+    return Promise.resolve(
+      localStorageTodos ? JSON.parse(localStorageTodos) : []
+    )
+  }
 }

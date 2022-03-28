@@ -3,6 +3,7 @@ import { AddTodoRepository } from '@/frontend/data/protocols/cache/todo'
 export class AddTodoRepositorySpy implements AddTodoRepository {
   nonce: number = 0
   params: AddTodoRepository.Params
+
   result: AddTodoRepository.Result = {
     todoId: 'valid-id',
     todoName: 'any name',
@@ -23,5 +24,9 @@ export class AddTodoRepositorySpy implements AddTodoRepository {
     }
 
     return null
+  }
+
+  async load(): Promise<AddTodoRepository.Result[] | undefined[]> {
+    return [this.result]
   }
 }

@@ -1,5 +1,6 @@
 export interface AddTodoRepository {
   add: (params: AddTodoRepository.Params) => Promise<AddTodoRepository.Result>
+  load: () => Promise<AddTodoRepository.Result[]>
 }
 
 export namespace AddTodoRepository {
